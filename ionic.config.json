@@ -1,0 +1,7 @@
+{
+  "name": "PedidosIonic",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
