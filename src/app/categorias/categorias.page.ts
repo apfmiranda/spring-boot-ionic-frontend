@@ -1,4 +1,7 @@
+import { Observable } from 'rxjs';
+import { CategoriaService } from './categoria.service';
 import { Component, OnInit } from '@angular/core';
+import { CategoriaDto } from './categoria-dto';
 
 @Component({
   selector: 'app-categorias',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriasPage implements OnInit {
 
-  constructor() { }
+  categorias$: Observable<CategoriaDto[]> ;
+
+  constructor(public service: CategoriaService) { }
 
   ngOnInit() {
+    this.findAll();
+  }
+
+  findAll() {
+    this.categorias$ = this.service.findAll();
   }
 
 }
