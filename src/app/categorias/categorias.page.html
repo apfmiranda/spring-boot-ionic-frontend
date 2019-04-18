@@ -8,7 +8,11 @@
 
     <ion-list  *ngIf="categorias$ | async as categorias">
         <ion-item *ngFor="let categoria of categorias" >
-          <ion-label>{{ categoria.nome }}</ion-label>
+            <ion-avatar slot="start" class="hydrated">
+              <img src="{{ bucketUrl }}cat{{ categoria.id }}.jpg"  >
+            </ion-avatar>
+          <ion-label><h2>{{ categoria.nome }}</h2></ion-label>
+          <ion-button size="small">Ver</ion-button>
         </ion-item>        
       </ion-list>
 

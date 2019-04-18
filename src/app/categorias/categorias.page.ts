@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs';
 import { CategoriaService } from './categoria.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,6 +12,7 @@ import { CategoriaDto } from './categoria-dto';
 export class CategoriasPage implements OnInit {
 
   categorias$: Observable<CategoriaDto[]> ;
+  bucketUrl: String = environment.bucketBaseUrl;
 
   constructor(public service: CategoriaService) { }
 
