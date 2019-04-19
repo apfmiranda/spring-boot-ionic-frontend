@@ -13,6 +13,6 @@ export class CategoriaService {
   constructor(public http: HttpClient) { }
 
   findAll(): Observable<CategoriaDto[]> {
-    return this.http.get<CategoriaDto[]>(`${environment.baseUrl}categoriass`);
+    return this.http.get<CategoriaDto[]>(`${environment.baseUrl}categorias`);
   }
 }
