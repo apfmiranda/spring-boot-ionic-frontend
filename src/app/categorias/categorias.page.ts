@@ -1,8 +1,8 @@
-import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs';
-import { CategoriaService } from './categoria.service';
 import { Component, OnInit } from '@angular/core';
-import { CategoriaDto } from './categoria-dto';
+import { CategoriaService } from './../_services/categoria.service';
+import { CategoriaDto } from './../_models/categoria-dto';
+import { environment } from './../../environments/environment';
 
 @Component({
   selector: 'app-categorias',
