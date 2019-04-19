@@ -1,3 +1,4 @@
+import { CredenciaisDto } from './../_models/credenciais-dto';
 import { Component, OnInit } from '@angular/core';
 import { NavController, MenuController } from '@ionic/angular';
 
@@ -8,9 +9,15 @@ import { NavController, MenuController } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
 
+  credenciais: CredenciaisDto = {
+    email: '',
+    senha: ''
+  };
+
   constructor (public navCtrl: NavController, public menu: MenuController) {}
 
   login() {
+    console.log(this.credenciais);
     this.navCtrl.navigateRoot('/categorias');
   }
 
