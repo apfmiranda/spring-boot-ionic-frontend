@@ -1,3 +1,4 @@
+import { AuthService } from './../_services/auth.service';
 import { CredenciaisDto } from './../_models/credenciais-dto';
 import { Component, OnInit } from '@angular/core';
 import { NavController, MenuController } from '@ionic/angular';
@@ -14,11 +15,17 @@ export class HomePage implements OnInit {
     senha: ''
   };
 
-  constructor (public navCtrl: NavController, public menu: MenuController) {}
+  constructor (public navCtrl: NavController,
+               public menu: MenuController,
+               public authService: AuthService) {}
 
   login() {
-    console.log(this.credenciais);
-    this.navCtrl.navigateRoot('/categorias');
+    this.authService.authenticate(this.credenciais)
+      .subscribe(response => {
+        console.log(response.headers.get('Authorization'));
+        this.navCtrl.navigateRoot('/categorias');
+      },
+      error => {});
   }
 
   ngOnInit() {
