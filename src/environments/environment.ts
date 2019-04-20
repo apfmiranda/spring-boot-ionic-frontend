@@ -2,11 +2,15 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { STORAGE_KEYS } from '../app/_configs/storage_keys.config';
+
 export const environment = {
   production: false,
   baseUrl: 'http://localhost:8080/',
-  bucketBaseUrl: 'https://s3-sa-east-1.amazonaws.com/curso-ionic-apf/'
+  bucketBaseUrl: 'https://s3-sa-east-1.amazonaws.com/curso-ionic-apf/',
+  STORAGE_KEYS: STORAGE_KEYS
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file
