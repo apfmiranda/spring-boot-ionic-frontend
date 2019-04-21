@@ -1,16 +1,19 @@
 
 <ion-content>
-  <ion-img class="logo"></ion-img>
+  <div class="ion-padding">
+    
+    <ion-img class="logo"></ion-img>
 
-  <form>
-    <ion-item>
-      <ion-input [(ngModel)]="credenciais.email" type="text" name="email"  placeholder="Email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input [(ngModel)]="credenciais.senha" type="password" name="senha" placeholder="Senha"></ion-input>
-    </ion-item>
-    <ion-button expand="block" (click)="login()">Entrar</ion-button>
-  </form>
-  <ion-button expand="block" fill="outline">Registrar</ion-button>
+    <form>
+      <ion-item>
+        <ion-input [(ngModel)]="credenciais.email" type="text" name="email"  placeholder="Email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="credenciais.senha" type="password" name="senha" placeholder="Senha"></ion-input>
+      </ion-item>
+      <ion-button expand="block" (click)="login()">Entrar</ion-button>
+    </form>
+    <ion-button expand="block" fill="outline">Registrar</ion-button>
+  </div>
 
 </ion-content>

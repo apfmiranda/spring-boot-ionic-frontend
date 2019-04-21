@@ -1,10 +1,7 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Categorias</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header title="Categorias"></app-header>
 
 <ion-content>
+    <div class="ion-padding">
 
     <ion-list  *ngIf="categorias$ | async as categorias">
         <ion-item *ngFor="let categoria of categorias" >
@@ -15,5 +12,7 @@
           <ion-button size="small">Ver</ion-button>
         </ion-item>        
       </ion-list>
+
+    </div>
 
 </ion-content>
