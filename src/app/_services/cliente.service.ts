@@ -15,13 +15,7 @@ export class ClienteService {
   constructor(public http: HttpClient, public storage: StorageService) { }
 
   findByEmail(email: string): Observable<ClienteDto> {
-    // uso temporario antes de implementar interceptor
-    const token = this.storage.getLocalUser().token;
-    const authHaeder = new HttpHeaders({'Authorization': 'Bearer ' + token});
-
-    return this.http.get<ClienteDto>(
-      `${environment.baseUrl}/clientes/email?value=${email}`,
-      {'headers': authHaeder});
+    return this.http.get<ClienteDto>(`${environment.baseUrl}/clientes/email?value=${email}`);
   }
 
   getImageFromBucket(id: string): Observable<any> {
