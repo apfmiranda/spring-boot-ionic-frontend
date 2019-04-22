@@ -23,25 +23,25 @@
       </ion-item>
       <p
         class="danger"
-        *ngIf="
-          signupForm.controls.email.dirty && signupForm.controls.email.errors
-        "
+        *ngIf="signupForm.controls.email.dirty && signupForm.controls.email.errors"
         margin-left
       >
         Valor inválido
       </p>
-      <ion-list radio-group formControlName="tipo">
-        <ion-list-header>
-            <ion-label position="stacked">Tipo de cliente</ion-label>          
-        </ion-list-header>
-        <ion-item>
-          <ion-label>Pessoa física</ion-label>
-          <ion-radio checked="true" value="1"></ion-radio>
-        </ion-item>
-        <ion-item>
-          <ion-label>Pessoa jurídica</ion-label>
-          <ion-radio value="2"></ion-radio>
-        </ion-item>
+      <ion-list>
+        <ion-radio-group>
+          <ion-list-header>
+              <ion-label position="stacked">Tipo de cliente</ion-label>          
+          </ion-list-header>
+          <ion-item>
+            <ion-label>Pessoa física</ion-label>
+            <ion-radio formControlName="tipo" checked="true" value="1"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Pessoa jurídica</ion-label>
+            <ion-radio formControlName="tipo" value="2"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
       </ion-list>
 
       <ion-item>
@@ -50,10 +50,7 @@
       </ion-item>
       <p
         class="danger"
-        *ngIf="
-          signupForm.controls.cpfOuCnpj.dirty &&
-          signupForm.controls.cpfOuCnpj.errors
-        "
+        *ngIf="signupForm.controls.cpfOuCnpj.dirty && signupForm.controls.cpfOuCnpj.errors"
         margin-left
       >
         Valor inválido
@@ -64,9 +61,7 @@
       </ion-item>
       <p
         class="danger"
-        *ngIf="
-          signupForm.controls.senha.dirty && signupForm.controls.senha.errors
-        "
+        *ngIf="signupForm.controls.senha.dirty && signupForm.controls.senha.errors"
         margin-left
       >
         Valor inválido
@@ -77,10 +72,7 @@
       </ion-item>
       <p
         class="danger"
-        *ngIf="
-          signupForm.controls.logradouro.dirty &&
-          signupForm.controls.logradouro.errors
-        "
+        *ngIf="signupForm.controls.logradouro.dirty && signupForm.controls.logradouro.errors"
         margin-left
       >
         Valor inválido
@@ -91,11 +83,8 @@
       </ion-item>
       <p
         class="danger"
-        *ngIf="
-          signupForm.controls.numero.dirty && signupForm.controls.numero.errors
-        "
-        margin-left
-      >
+        *ngIf="signupForm.controls.numero.dirty && signupForm.controls.numero.errors"
+        margin-left>
         Valor inválido
       </p>
       <ion-item>
@@ -113,8 +102,7 @@
       <p
         class="danger"
         *ngIf="signupForm.controls.cep.dirty && signupForm.controls.cep.errors"
-        margin-left
-      >
+        margin-left>
         Valor inválido
       </p>
       <ion-item>
@@ -123,12 +111,8 @@
       </ion-item>
       <p
         class="danger"
-        *ngIf="
-          signupForm.controls.telefone1.dirty &&
-          signupForm.controls.telefone1.errors
-        "
-        margin-leftupdateCidades
-      >
+        *ngIf="signupForm.controls.telefone1.dirty && signupForm.controls.telefone1.errors"
+        margin-leftupdateCidades>
         Valor inválido
       </p>
       <ion-item>
@@ -141,21 +125,19 @@
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Estado*</ion-label>
-        <ion-select formControlName="estadoId" (ionChange)="updateCidades()">
+        <ion-select interface="popover" formControlName="estadoId" (ionChange)="updateCidades()">
           <ion-select-option
             *ngFor="let estado of estados; first as f"
             [value]="estado.id"
-            [selected]="f"
-            >{{ estado.nome }}</ion-select-option
-          >
+            [selected]="f">{{ estado.nome }}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Cidade*</ion-label>
-        <ion-select formControlName="cidadeId">
-          <ion-select-option *ngFor="let cidade of cidades" [value]="cidade.id">{{
-            cidade.nome
-          }}</ion-select-option>
+        <ion-select interface="popover" formControlName="cidadeId">
+          <ion-select-option 
+            *ngFor="let cidade of cidades" 
+            [value]="cidade.id">{{ cidade.nome }}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-button expand="block" type="submit" [disabled]="signupForm.invalid">

@@ -1,5 +1,9 @@
+import { EstadoService } from './../_services/estado.service';
+import { CidadeService } from './../_services/cidade.service';
+import { CidadeDto } from './../_models/cidade-dto';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { EstadoDto } from '../_models/estado-dto';
 
 @Component({
   selector: 'app-signup',
@@ -8,21 +12,53 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class SignupPage implements OnInit {
 
-  signupForm;
-  estados: Array<{id: string, nome: string}>;
-  cidades: Array<{id: string, nome: string}>;
+  signupForm: FormGroup;
+  estados: EstadoDto[];
+  cidades: CidadeDto[];
 
-  constructor() { }
+  constructor(
+    public formBuilder: FormBuilder,
+    public cidadeService: CidadeService,
+    public estadoService: EstadoService) { }
 
   ngOnInit() {
 
-    this.signupForm = new FormGroup({
-      nome: new FormControl('')
+    this.signupForm = this.formBuilder.group({
+      nome:         ['Joaquim',           [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
+      email:        ['joaquim@gmail.com', [Validators.required, Validators.email]],
+      tipo :        ['1',                 [Validators.required]],
+      cpfOuCnpj :   ['06134596280',       [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
+      senha :       ['123',               [Validators.required]],
+      logradouro :  ['Rua Via',           [Validators.required]],
+      numero :      ['25',                [Validators.required]],
+      complemento : ['Apto 3',            []],
+      bairro :      ['Copacabana',        []],
+      cep :         ['10828333',          [Validators.required]],
+      telefone1 :   ['977261827',         [Validators.required]],
+      telefone2 :   ['',                  []],
+      telefone3 :   ['',                  []],
+      estadoId :    [null,                [Validators.required]],
+      cidadeId :    [null,                [Validators.required]]
     });
+
+    this.estadoService.findAll()
+      .subscribe(response => {
+        this.estados = response;
+        this.signupForm.controls['estadoId'].setValue(this.estados[0].id);
+        this.updateCidades();
+    });
+
   }
 
   signupUser() {}
 
-  updateCidades() {}
+  updateCidades() {
+    const estadoId = this.signupForm.controls['estadoId'].value;
+    this.cidadeService.findAll(estadoId)
+      .subscribe(response => {
+        this.cidades = response;
+        this.signupForm.controls['cidadeId'].setValue(null);
+      });
+  }
 
 }
