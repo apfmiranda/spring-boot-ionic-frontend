@@ -10,24 +10,22 @@
         <ion-label position="stacked">Nome*</ion-label>
         <ion-input formControlName="nome" type="text"></ion-input>
       </ion-item>
-      <p
+      <ion-text color="danger"><p
         class="danger"
-        *ngIf="signupForm.controls.nome.dirty && signupForm.controls.nome.errors"
-        margin-left
-      >
+        *ngIf="signupForm.controls['nome'].dirty && signupForm.controls['nome'].errors"
+        margin-left>
         Valor inválido
-      </p>
+      </p></ion-text>
       <ion-item>
         <ion-label position="stacked">Email*</ion-label>
         <ion-input formControlName="email" type="text"></ion-input>
       </ion-item>
-      <p
+      <ion-text color="danger"><p
         class="danger"
-        *ngIf="signupForm.controls.email.dirty && signupForm.controls.email.errors"
-        margin-left
-      >
+        *ngIf="signupForm.controls['email'].dirty && signupForm.controls['email'].errors"
+        margin-left>
         Valor inválido
-      </p>
+      </p></ion-text>
       <ion-list>
         <ion-radio-group>
           <ion-list-header>
@@ -48,45 +46,42 @@
         <ion-label position="stacked">CPF ou CNPJ</ion-label>
         <ion-input formControlName="cpfOuCnpj" type="text"></ion-input>
       </ion-item>
-      <p
+      <ion-text color="danger"><p
         class="danger"
-        *ngIf="signupForm.controls.cpfOuCnpj.dirty && signupForm.controls.cpfOuCnpj.errors"
-        margin-left
-      >
+        *ngIf="signupForm.controls['cpfOuCnpj'].dirty && signupForm.controls['cpfOuCnpj'].errors"
+        margin-left>
         Valor inválido
-      </p>
+      </p></ion-text>
       <ion-item>
         <ion-label position="stacked">Senha*</ion-label>
         <ion-input formControlName="senha" type="password"></ion-input>
       </ion-item>
-      <p
+      <ion-text color="danger"><p
         class="danger"
-        *ngIf="signupForm.controls.senha.dirty && signupForm.controls.senha.errors"
-        margin-left
-      >
+        *ngIf="signupForm['controls'].senha.dirty && signupForm['controls'].senha.errors"
+        margin-left>
         Valor inválido
-      </p>
+      </p></ion-text>
       <ion-item>
         <ion-label position="stacked">Logradouro*</ion-label>
         <ion-input formControlName="logradouro" type="text"></ion-input>
       </ion-item>
-      <p
+      <ion-text color="danger"><p
         class="danger"
-        *ngIf="signupForm.controls.logradouro.dirty && signupForm.controls.logradouro.errors"
-        margin-left
-      >
+        *ngIf="signupForm.controls['logradouro'].dirty && signupForm.controls['logradouro'].errors"
+        margin-left>
         Valor inválido
-      </p>
+      </p></ion-text>
       <ion-item>
         <ion-label position="stacked">Número*</ion-label>
         <ion-input formControlName="numero" type="text"></ion-input>
       </ion-item>
-      <p
+      <ion-text color="danger"><p
         class="danger"
-        *ngIf="signupForm.controls.numero.dirty && signupForm.controls.numero.errors"
+        *ngIf="signupForm.controls['numero'].dirty && signupForm.controls['numero'].errors"
         margin-left>
         Valor inválido
-      </p>
+      </p></ion-text>
       <ion-item>
         <ion-label position="stacked">Complemento</ion-label>
         <ion-input formControlName="complemento" type="text"></ion-input>
@@ -99,22 +94,22 @@
         <ion-label position="stacked">CEP*</ion-label>
         <ion-input formControlName="cep" type="text"></ion-input>
       </ion-item>
-      <p
+      <ion-text color="danger"><p
         class="danger"
-        *ngIf="signupForm.controls.cep.dirty && signupForm.controls.cep.errors"
+        *ngIf="signupForm.controls['cep'].dirty && signupForm.controls['cep'].errors"
         margin-left>
         Valor inválido
-      </p>
+      </p></ion-text>
       <ion-item>
         <ion-label position="stacked">Telefone 1*</ion-label>
         <ion-input formControlName="telefone1" type="text"></ion-input>
       </ion-item>
-      <p
+      <ion-text color="danger"><p
         class="danger"
-        *ngIf="signupForm.controls.telefone1.dirty && signupForm.controls.telefone1.errors"
-        margin-leftupdateCidades>
+        *ngIf="signupForm.controls['telefone1'].dirty && signupForm.controls['telefone1'].errors"
+        margin-left>
         Valor inválido
-      </p>
+      </p></ion-text>
       <ion-item>
         <ion-label position="stacked">Telefone 2</ion-label>
         <ion-input formControlName="telefone2" type="text"></ion-input>
