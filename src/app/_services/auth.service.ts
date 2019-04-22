@@ -18,7 +18,7 @@ export class AuthService {
 
   authenticate(credenciais: CredenciaisDto) {
     return this.http.post(
-      `${environment.baseUrl}login`,
+      `${environment.baseUrl}/login`,
       credenciais,
       {
         observe: 'response',

@@ -1,7 +1,16 @@
 <app-header title="Perfil"></app-header>
 
 <ion-content>
-        <div class="ion-padding">
-            {{ email }}
-        </div>
+    <div class="ion-padding">
+        <ion-grid>
+            <ion-row justify-content-center align-items-center style="height: 100%">
+                <ion-avatar>
+                    <ion-img [src]="cliente?.imageUrl || 'assets/imgs/avatar-blank.png'"></ion-img>
+                </ion-avatar>
+            </ion-row>
+            <h2 text-center>{{ cliente?.nome }}</h2>
+            <p text-center>{{ cliente?.email }}</p>
+        </ion-grid>
+    </div>
 </ion-content>
+
