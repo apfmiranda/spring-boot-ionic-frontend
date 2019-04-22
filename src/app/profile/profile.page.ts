@@ -1,3 +1,4 @@
+import { NavController } from '@ionic/angular';
 import { ClienteService } from './../_services/cliente.service';
 import { StorageService } from './../_services/storage.service';
 import { Component, OnInit } from '@angular/core';
@@ -14,6 +15,7 @@ export class ProfilePage implements OnInit {
   cliente: ClienteDto;
 
   constructor(
+    public navCtrl: NavController,
     public storage: StorageService,
     public clienteService: ClienteService) { }
 
@@ -25,7 +27,13 @@ export class ProfilePage implements OnInit {
           this.cliente = cliente;
           this.getImageIfExists();
         },
-        error => {});
+        error => {
+          if (error.status === 403) {
+            this.navCtrl.navigateRoot('/home');
+          }
+        });
+    } else {
+      this.navCtrl.navigateRoot('/home');
     }
   }
 
