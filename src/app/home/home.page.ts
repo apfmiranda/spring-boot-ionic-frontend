@@ -50,4 +50,7 @@ export class HomePage implements OnInit {
     this.menu.enable(true);
   }
 
+  signup() {
+    this.navCtrl.navigateRoot('/signup');
+  }
 }
