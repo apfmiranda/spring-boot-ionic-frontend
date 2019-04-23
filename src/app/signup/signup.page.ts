@@ -1,3 +1,5 @@
+import { NavController, AlertController } from '@ionic/angular';
+import { ClienteService } from './../_services/cliente.service';
 import { EstadoService } from './../_services/estado.service';
 import { CidadeService } from './../_services/cidade.service';
 import { CidadeDto } from './../_models/cidade-dto';
@@ -11,13 +13,17 @@ import { EstadoDto } from '../_models/estado-dto';
   styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnInit {
+  [x: string]: any;
 
   signupForm: FormGroup;
   estados: EstadoDto[];
   cidades: CidadeDto[];
 
   constructor(
+    public navCtrl: NavController,
+    public alertController: AlertController,
     public formBuilder: FormBuilder,
+    public clienteService: ClienteService,
     public cidadeService: CidadeService,
     public estadoService: EstadoService) { }
 
@@ -46,11 +52,10 @@ export class SignupPage implements OnInit {
         this.estados = response;
         this.signupForm.controls['estadoId'].setValue(this.estados[0].id);
         this.updateCidades();
-    });
+    },
+    error => {});
 
   }
-
-  signupUser() {}
 
   updateCidades() {
     const estadoId = this.signupForm.controls['estadoId'].value;
@@ -58,7 +63,33 @@ export class SignupPage implements OnInit {
       .subscribe(response => {
         this.cidades = response;
         this.signupForm.controls['cidadeId'].setValue(null);
-      });
+      },
+      error => {});
+  }
+
+  signupUser() {
+    this.clienteService.inserir(this.signupForm.value)
+      .subscribe(response => {
+        this.showInsertOk();
+      },
+      error => {});
+    console.log(this.signupForm.value);
+  }
+
+  async showInsertOk() {
+    const alert = await this.alertController.create({
+      header: 'Sucesso!',
+      message: 'Cadastro efetuado com sucesso',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.navCtrl.navigateForward('/home');
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
 }

@@ -1,3 +1,4 @@
+import { FieldMessage } from './../_models/field-message';
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -18,9 +19,17 @@ export class ErrorInterceptor implements HttpInterceptor {
 
         return next.handle(request)
             .pipe(
-                catchError(err => {
+                catchError((error, caught) => {
 
-                    switch (err.status) {
+                    let errorObj = error;
+                    if (errorObj.error) {
+                        errorObj = errorObj.error;
+                    }
+                    if (!errorObj.status) {
+                        errorObj = JSON.parse(errorObj);
+                    }
+
+                    switch (errorObj.status) {
                         case 401:
                             this.handled401();
                             console.log('case 401:');
@@ -28,22 +37,40 @@ export class ErrorInterceptor implements HttpInterceptor {
                         case 403:
                             this.handled403();
                             break;
+                        case 422:
+                            this.handled422(errorObj);
+                            break;
                         default:
-                            this.handledDefaultError(err);
+                            this.handledDefaultError(errorObj);
                             break;
                     }
 
-                    // let errorObj = err;
-                    // if (errorObj.error) {
-                    //     errorObj = errorObj.console.error;
-                    //     if (!errorObj.status) {
-                    //         errorObj = JSON.parse(errorObj);
-                    //     }
-                    // }
-                    const error = err.error.message || err.statusText;
-                    return throwError(error);
+                    return throwError(errorObj);
                 })
             );
+    }
+    
+    async handled422(err) {
+        const alert = await this.alertController.create({
+            header: 'ERRO 422: Validação',
+            message: this.listErrors(err.errors),
+            buttons: ['OK']
+        });
+        await alert.present();
+    }
+
+    listErrors(errors: FieldMessage[]): string {
+        let s = '';
+        for (let index = 0; index < errors.length; index++) {
+            s = s + '<p><strong>'
+                  + errors[index].fieldName
+                  + '</strong>: '
+                  + errors[index].message
+                  + '</p>';
+        }
+
+        return s;
+
     }
 
     async handledDefaultError(err: any) {
@@ -52,8 +79,8 @@ export class ErrorInterceptor implements HttpInterceptor {
             subHeader: err.error,
             message: err.message,
             buttons: ['OK']
-          });
-          await alert.present();
+        });
+        await alert.present();
     }
 
     async handled401() {
