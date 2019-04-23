@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from './../_services/categoria.service';
 import { CategoriaDto } from './../_models/categoria-dto';
 import { environment } from './../../environments/environment';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-categorias',
@@ -14,7 +15,9 @@ export class CategoriasPage implements OnInit {
   categorias$: Observable<CategoriaDto[]> ;
   bucketUrl: String = environment.bucketBaseUrl;
 
-  constructor(public service: CategoriaService) { }
+  constructor(
+    public service: CategoriaService,
+    public navCtrl: NavController) { }
 
   ngOnInit() {
     this.findAll();
@@ -22,6 +25,10 @@ export class CategoriasPage implements OnInit {
 
   findAll() {
     this.categorias$ = this.service.findAll();
+  }
+
+  showProdutos() {
+    this.navCtrl.navigateForward('/produtos');
   }
 
 }
