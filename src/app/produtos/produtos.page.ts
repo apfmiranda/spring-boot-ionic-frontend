@@ -27,11 +27,24 @@ export class ProdutosPage implements OnInit {
         this.produtoService.findByCategoria(params.get('categoria_id'))
           .subscribe(response => {
             this.items = response['content'];
-            console.log('categorias: ', this.items);
+            this.loadImageUrls();
         },
         error => {});
       }
     );
+  }
+
+  loadImageUrls(start?: number, end?: number) {
+    // for (let i = start; i <= end; i++) {
+
+    for (let i = 0; i < this.items.length; i++) {
+      const item = this.items[i];
+      this.produtoService.getSmallImageFromBucket(item.id)
+        .subscribe(response => {
+          item.imageUrl = `${environment.bucketBaseUrl}/prod${item.id}-small.jpg`;
+        },
+        error => {});
+    }
   }
 
   showDetail(itemId) {}
