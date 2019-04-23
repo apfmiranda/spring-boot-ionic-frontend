@@ -1,5 +1,8 @@
+import { environment } from 'src/environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { ProdutoDto } from '../_models/produto-dto';
+import { ProdutoService } from '../_services/produto.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-produtos',
@@ -9,24 +12,27 @@ import { ProdutoDto } from '../_models/produto-dto';
 export class ProdutosPage implements OnInit {
 
   items: ProdutoDto[];
+  bucketUrl: string;
 
-  constructor() { }
+  constructor(
+    public produtoService: ProdutoService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.items = [
-      {
-        id: '1',
-        nome: 'Mouse',
-        preco: 80.99,
-        imageUrl: ''
-      },
-      {
-        id: '2',
-        nome: 'Teclado',
-        preco: 100.00,
-        imageUrl: ''
+    this.bucketUrl = environment.bucketBaseUrl;
+
+    this.route.paramMap.subscribe(
+      (params: ParamMap) => {
+        console.log(params);
+        this.produtoService.findByCategoria(params.get('categoria_id'))
+          .subscribe(response => {
+            this.items = response['content'];
+            console.log('categorias: ', this.items);
+        },
+        error => {});
       }
-    ];
+    );
   }
-  showDetail(itemId){}
+
+  showDetail(itemId) {}
 }

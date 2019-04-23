@@ -9,7 +9,7 @@
             <ion-img src="{{ bucketUrl }}/cat{{ categoria.id }}.jpg"  ></ion-img>
           </ion-thumbnail>         
           <ion-label><h2>{{ categoria.nome }}</h2></ion-label>
-          <ion-button size="small" (click)="showProdutos()" >Ver</ion-button>
+          <ion-button size="small" (click)="showProdutos(categoria.id)" >Ver</ion-button>
         </ion-item>        
       </ion-list>
 

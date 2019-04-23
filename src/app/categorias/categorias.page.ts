@@ -27,8 +27,8 @@ export class CategoriasPage implements OnInit {
     this.categorias$ = this.service.findAll();
   }
 
-  showProdutos() {
-    this.navCtrl.navigateForward('/produtos');
+  showProdutos(categoria_id: string) {
+    this.navCtrl.navigateForward(['/produtos', {categoria_id: categoria_id}]);
   }
 
 }
