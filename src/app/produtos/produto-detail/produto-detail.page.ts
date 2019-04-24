@@ -26,7 +26,6 @@ export class ProdutoDetailPage implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(
       (params: ParamMap) => {
-        console.log(params);
         this.produtoService.findById(params.get('produto_id'))
         .pipe(
           tap(produto => {

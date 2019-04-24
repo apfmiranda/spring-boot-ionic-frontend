@@ -28,7 +28,6 @@ export class ProdutosPage implements OnInit {
 
     this.route.paramMap.subscribe(
       (params: ParamMap) => {
-        console.log(params);
         this.produtoService.findByCategoria(params.get('categoria_id'))
         .pipe(
           tap(produto => {
