@@ -5,7 +5,6 @@ import { Component, OnInit } from '@angular/core';
 import { ProdutoDto } from 'src/app/_models/produto-dto';
 import { ProdutoService } from 'src/app/_services/produto.service';
 import { tap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 import { BucketService } from 'src/app/_services/bucket.service';
 
 @Component({

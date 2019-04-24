@@ -1,8 +1,10 @@
+import { NavController } from '@ionic/angular';
 import { CartService } from './../_services/cart.service';
 import { CartItem } from './../_models/cart-item';
 import { Cart } from './../_models/cart';
 import { Component, OnInit } from '@angular/core';
 import { BucketService } from '../_services/bucket.service';
+import { ProdutoDto } from '../_models/produto-dto';
 
 @Component({
   selector: 'app-cart',
@@ -15,7 +17,8 @@ export class CartPage implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private bucketService: BucketService) { }
+    private bucketService: BucketService,
+    private navCtrl: NavController) { }
 
   ngOnInit() {
     const cart: Cart = this.cartService.getCart();
@@ -26,20 +29,20 @@ export class CartPage implements OnInit {
     });
   }
 
-  decreaseQuantity(produto) {
-    throw new Error('Method not implemented.');
+  decreaseQuantity(produto: ProdutoDto) {
+    this.items = this.cartService.decreaseQuantity(produto).items;
   }
 
-  increaseQuantity(produto) {
-    throw new Error('Method not implemented.');
+  increaseQuantity(produto: ProdutoDto) {
+    this.items = this.cartService.increaseQuantity(produto).items;
   }
 
-  removeItem(produto) {
-    throw new Error('Method not implemented.');
+  removeItem(produto: ProdutoDto) {
+    this.items = this.cartService.removeProduto(produto).items;
   }
 
   goOn() {
-    throw new Error('Method not implemented.');
+    this.navCtrl.navigateForward(['/categorias']);
   }
 
   checkout() {
@@ -47,7 +50,7 @@ export class CartPage implements OnInit {
   }
 
   total(): number {
-    throw new Error('Method not implemented.');
+    return this.cartService.total();
   }
 
 }

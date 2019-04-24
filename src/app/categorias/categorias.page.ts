@@ -16,8 +16,8 @@ export class CategoriasPage implements OnInit {
   bucketUrl: String = environment.bucketBaseUrl;
 
   constructor(
-    public service: CategoriaService,
-    public navCtrl: NavController) { }
+    private service: CategoriaService,
+    private navCtrl: NavController) { }
 
   ngOnInit() {
     this.findAll();

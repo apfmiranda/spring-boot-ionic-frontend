@@ -6,11 +6,7 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher> -->
     
-      <ion-fab vertical="top" horizontal="end" edge slot="fixed">
-        <ion-fab-button navPush="CartPage" size="small">
-          <ion-icon name="cart"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
+      
       <ion-list>
         <ion-item *ngFor="let item of items" (click)="showDetail(item.id)">
           <ion-thumbnail slot="start">
