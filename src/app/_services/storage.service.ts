@@ -1,3 +1,4 @@
+import { Cart } from './../_models/cart';
 import { environment } from './../../environments/environment';
 import { LocalUser } from './../_models/local-user';
 import { Injectable } from '@angular/core';
@@ -24,6 +25,24 @@ export class StorageService {
       localStorage.removeItem(environment.STORAGE_KEYS.localUser);
     } else {
       localStorage.setItem(environment.STORAGE_KEYS.localUser, JSON.stringify(localUser));
+    }
+  }
+
+  getCart() {
+    const str = localStorage.getItem(environment.STORAGE_KEYS.cart);
+
+    if (str != null) {
+      return JSON.parse(str);
+    } else {
+      return null;
+    }
+  }
+
+  setCart(obj: Cart) {
+    if (obj != null) {
+      localStorage.setItem(environment.STORAGE_KEYS.cart, JSON.stringify(obj));
+    } else {
+      localStorage.removeItem(environment.STORAGE_KEYS.cart);
     }
   }
 }

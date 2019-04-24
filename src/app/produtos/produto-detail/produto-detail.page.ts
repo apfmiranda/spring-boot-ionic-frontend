@@ -1,9 +1,12 @@
+import { NavController } from '@ionic/angular';
+import { CartService } from './../../_services/cart.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ProdutoDto } from 'src/app/_models/produto-dto';
 import { ProdutoService } from 'src/app/_services/produto.service';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { BucketService } from 'src/app/_services/bucket.service';
 
 @Component({
   selector: 'app-produto-detail',
@@ -16,7 +19,10 @@ export class ProdutoDetailPage implements OnInit {
 
   constructor(
       private route: ActivatedRoute,
-      private produtoService: ProdutoService) { }
+      private navCtrl: NavController,
+      private produtoService: ProdutoService,
+      private bucketService: BucketService,
+      private cartService: CartService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(
@@ -25,8 +31,8 @@ export class ProdutoDetailPage implements OnInit {
         this.produtoService.findById(params.get('produto_id'))
         .pipe(
           tap(produto => {
-            const prod: ProdutoDto = produto;
-            this.loadImageUrl(prod);
+            let prod: ProdutoDto = produto;
+            prod = this.bucketService.loadRegularImageProdutoUrl(prod);
           })
         )
         .subscribe(response => {
@@ -36,13 +42,8 @@ export class ProdutoDetailPage implements OnInit {
       });
   }
 
-  loadImageUrl(item: ProdutoDto) {
-    this.produtoService.getSmallImageFromBucket(item.id)
-      .subscribe(response => {
-        item.imageUrl = `${environment.bucketBaseUrl}/prod${item.id}.jpg`;
-      },
-      error => {});
+  addToCart(produto: ProdutoDto) {
+    this.cartService.addProduto(produto);
+    this.navCtrl.navigateForward(['/cart']);
   }
-
-  addToCart(item) {}
 }

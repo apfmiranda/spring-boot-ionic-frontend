@@ -1,0 +1,51 @@
+<app-header title="Carrinho"></app-header>
+
+<ion-content padding-top> 
+  <ion-list>
+    <ion-item *ngFor="let item of items">
+      <ion-thumbnail slot="start">
+        <img [src]="item.produto.imageUrl || 'assets/imgs/prod.jpg'" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ item.produto.nome }}</h2>
+        <p>{{ item.produto.preco | currency }}</p>
+      </ion-label>      
+      <ion-icon
+        class="nolinebreak"
+        name="remove-circle"
+        color="primary"
+        (click)="decreaseQuantity(item.produto)"
+      ></ion-icon>
+      <p class="nolinebreak">{{ item.quantidade }}</p>
+      <ion-icon
+        name="add-circle"
+        color="primary"
+        (click)="increaseQuantity(item.produto)"
+      ></ion-icon>
+      <ion-icon 
+        name="trash"
+        slot="end"
+        color="danger"
+        (click)="removeItem(item.produto)"
+      ></ion-icon>
+    </ion-item>
+    <!-- <ion-item *ngIf="total() > 0">
+      <ion-label>
+        <h1>Total</h1>
+        <h1>{{ total() }}</h1>
+      </ion-label>      
+    </ion-item>
+    <ion-item *ngIf="total() <= 0">
+      <h1>Seu carrinho está vazio</h1>
+    </ion-item> -->
+  </ion-list>
+  <!-- <ion-button expand="block" (click)="goOn()">Continuar comprando</ion-button> -->
+  <!-- <ion-button
+    *ngIf="total() > 0"
+    color="secondary"
+    expand="block"
+    (click)="checkout()"
+  >
+    Finalizar pedido
+  </ion-button> -->
+</ion-content>
