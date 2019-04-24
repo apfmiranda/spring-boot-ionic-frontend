@@ -15,8 +15,18 @@ export class ProdutoService {
     return this.http.get<any>(`${environment.baseUrl}/produtos/?categorias=${categoria_id}`);
   }
 
+  findById(id: string): Observable<ProdutoDto> {
+    return this.http.get<ProdutoDto>(`${environment.baseUrl}/produtos/${id}`);
+  }
+
+  getImageFromBucket(id: string): Observable<any> {
+    const url = `${environment.bucketBaseUrl}/prod${id}.jpg`;
+    return this.http.get(url, {responseType : 'blob'});
+  }
+
   getSmallImageFromBucket(id: string): Observable<any> {
     const url = `${environment.bucketBaseUrl}/prod${id}-small.jpg`;
     return this.http.get(url, {responseType : 'blob'});
   }
+
 }

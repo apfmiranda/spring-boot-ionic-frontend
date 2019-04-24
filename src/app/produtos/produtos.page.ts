@@ -49,9 +49,9 @@ export class ProdutosPage implements OnInit {
         item.imageUrl = `${environment.bucketBaseUrl}/prod${item.id}-small.jpg`;
       },
       error => {});
-}
+  }
 
-  showDetail(itemId) {
-    this.navCtrl.navigateForward(['/produto-detail']);
+  showDetail(produto_id) {
+    this.navCtrl.navigateForward(['/produto-detail', {produto_id: produto_id}]);
   }
 }
