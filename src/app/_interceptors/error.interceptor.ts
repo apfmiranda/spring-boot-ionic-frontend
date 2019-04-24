@@ -49,7 +49,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 })
             );
     }
-    
+
     async handled422(err) {
         const alert = await this.alertController.create({
             header: 'ERRO 422: Validação',

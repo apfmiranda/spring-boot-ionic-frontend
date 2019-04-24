@@ -1,0 +1,22 @@
+<app-header title="Detalhe produto"></app-header>
+
+<ion-content padding>
+  <ion-fab vertical="top" horizontal="end" edge slot="fixed">
+    <ion-fab-button navPush="CartPage" size="small">
+      <ion-icon name="cart"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-card>
+    <img [src]="item?.imageUrl || 'assets/imgs/prod.jpg'"/>
+    <ion-card-content>
+      <ion-card-title>
+        {{item?.nome}}
+        </ion-card-title>
+      <p>
+        {{item?.preco | currency}}
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" fill="outline" (click)="addToCart(item)">Adicionar ao carrinho</ion-button>
+</ion-content>
