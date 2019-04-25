@@ -1,0 +1,16 @@
+<app-header title="Fechamento de pedido" showFab="false"></app-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-list-header>
+          Selecione um endereço
+        </ion-list-header>
+        <ion-item *ngFor="let item of items">
+          <ion-label>
+            <h2>{{item.logradouro}}, {{item.numero}}</h2>
+            <p>{{item.complemento}} {{item.bairro}} CEP {{item.cep}}</p>
+            <p>{{item.cidade.nome}}, {{item.cidade.estado.nome}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+</ion-content>

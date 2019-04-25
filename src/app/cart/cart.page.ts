@@ -46,7 +46,7 @@ export class CartPage implements OnInit {
   }
 
   checkout() {
-    throw new Error('Method not implemented.');
+    this.navCtrl.navigateForward(['/pick-address']);
   }
 
   total(): number {
