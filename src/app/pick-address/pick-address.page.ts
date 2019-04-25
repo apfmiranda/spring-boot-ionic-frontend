@@ -1,5 +1,8 @@
+import { ClienteService } from './../_services/cliente.service';
+import { NavController } from '@ionic/angular';
 import { EnderecoDto } from './../_models/endereco-dto';
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from '../_services/storage.service';
 
 @Component({
   selector: 'app-pick-address',
@@ -10,43 +13,26 @@ export class PickAddressPage implements OnInit {
 
   items: EnderecoDto[];
 
-  constructor() { }
+  constructor(
+    private navCtrl: NavController,
+    private storage: StorageService,
+    private clienteService: ClienteService) { }
 
   ngOnInit() {
-    this.items = [
-      {
-        id: '1',
-        logradouro: 'Rua Quinze de Novembro',
-        numero: '300',
-        complemento: 'Apto 200',
-        bairro: 'Santa Mônica',
-        cep: '48293822',
-        cidade: {
-          id: '1',
-          nome: 'Uberlândia',
-          estado: {
-            id: '1',
-            nome: 'Minas Gerais'
+    const localUser = this.storage.getLocalUser();
+    if (localUser && localUser.email) {
+      this.clienteService.findByEmail(localUser.email)
+        .subscribe(response => {
+          this.items = response['enderecos'];
+        },
+        error => {
+          if (error.status === 403) {
+            this.navCtrl.navigateRoot('/home');
           }
-        }
-      },
-      {
-        id: '2',
-        logradouro: 'Rua Alexandre Toledo da Silva',
-        numero: '405',
-        complemento: null,
-        bairro: 'Centro',
-        cep: '88933822',
-        cidade: {
-          id: '3',
-          nome: 'São Paulo',
-          estado: {
-            id: '2',
-            nome: 'São Paulo'
-          }
-        }
-      }
-    ];
+        });
+    } else {
+      this.navCtrl.navigateRoot('/home');
+    }
   }
 
 }
