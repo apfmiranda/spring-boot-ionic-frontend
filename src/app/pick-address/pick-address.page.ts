@@ -55,7 +55,7 @@ export class PickAddressPage implements OnInit {
   nextPage(address: EnderecoDto) {
     this.pedido.enderecoDeEntrega = {id: address.id};
 
-    this.clienteService.setPedidoFinalizado(this.pedido);
+    this.clienteService.setPedidoParaFinalizar(this.pedido);
     this.navCtrl.navigateForward(['/payment']);
   }
 }

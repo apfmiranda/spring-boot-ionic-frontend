@@ -14,7 +14,7 @@
           </ion-thumbnail>
           <ion-label>
             <h2>{{ item.nome }}</h2>
-            <p>{{ item.preco | currency }}</p>
+            <p>{{ item.preco | currency:'BRL':'symbol' }}</p>
           </ion-label>          
         </ion-item>
       </ion-list>

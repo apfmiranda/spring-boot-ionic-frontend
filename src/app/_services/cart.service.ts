@@ -11,8 +11,8 @@ import { ProdutoDto } from '../_models/produto-dto';
 export class CartService {
 
   private action = {
-    ADD: 'add',
-    REMOVE: 'remove',
+    ADD:      'add',
+    REMOVE:   'remove',
     DECREASE: 'decrease',
     INCREASE: 'increase'
   };

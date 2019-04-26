@@ -14,12 +14,15 @@ import { ClienteDto } from './../_models/cliente-dto';
 })
 export class ClienteService {
 
-  private pedidoFinalizado: PedidoDTO;
+  private pedidoParaFinalizar: PedidoDTO;
 
   constructor(public http: HttpClient, public storage: StorageService) { }
 
   findByEmail(email: string) {
     return this.http.get(`${environment.baseUrl}/clientes/email?value=${email}`);
+  }
+  findById(id) {
+    return this.http.get(`${environment.baseUrl}/clientes/${id}`);
   }
 
   getImageFromBucket(id: string): Observable<any> {
@@ -35,11 +38,11 @@ export class ClienteService {
     });
   }
 
-  setPedidoFinalizado(pedido: PedidoDTO) {
-    this.pedidoFinalizado = pedido;
+  setPedidoParaFinalizar(pedido: PedidoDTO) {
+    this.pedidoParaFinalizar = pedido;
   }
 
-  getPedidoFinalizado(): PedidoDTO {
-    return this.pedidoFinalizado;
+  getPedidoParaFinalizar(): PedidoDTO {
+    return this.pedidoParaFinalizar;
   }
 }

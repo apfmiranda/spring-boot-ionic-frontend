@@ -17,7 +17,8 @@ const routes: Routes = [
   { path: 'produto-detail', loadChildren: './produtos/produto-detail/produto-detail.module#ProdutoDetailPageModule' },
   { path: 'cart', loadChildren: './cart/cart.module#CartPageModule' },
   { path: 'pick-address', loadChildren: './pick-address/pick-address.module#PickAddressPageModule' },
-  { path: 'payment', loadChildren: './payment/payment.module#PaymentPageModule' }
+  { path: 'payment', loadChildren: './payment/payment.module#PaymentPageModule' },
+  { path: 'order-comfirmation', loadChildren: './order-comfirmation/order-comfirmation.module#OrderComfirmationPageModule' }
 
 ];
 
