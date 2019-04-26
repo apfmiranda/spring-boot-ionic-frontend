@@ -11,8 +11,9 @@ export class ProdutoService {
 
   constructor(public http: HttpClient) { }
 
-  findByCategoria(categoria_id: string): Observable<any> {
-    return this.http.get<any>(`${environment.baseUrl}/produtos/?categorias=${categoria_id}`);
+  findByCategoria(categoria_id: string, page: number = 0, linesPerPage: number = 24): Observable<any> {
+    return this.http.get<any>(
+      `${environment.baseUrl}/produtos/?categorias=${categoria_id}&page=${page}&linesPerPage=${linesPerPage}`);
   }
 
   findById(id: string): Observable<ProdutoDto> {
