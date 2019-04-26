@@ -1,4 +1,4 @@
-import { NavController } from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { ProdutoDto } from '../_models/produto-dto';
@@ -16,15 +16,19 @@ export class ProdutosPage implements OnInit {
 
   items: ProdutoDto[];
   bucketUrl: string;
+  private loading: any;
 
   constructor(
+    private loadCtrl: LoadingController,
     private produtoService: ProdutoService,
     private buckutService: BucketService,
     private route: ActivatedRoute,
     private navCtrl: NavController) { }
 
-  ngOnInit() {
+ async ngOnInit() {
     this.bucketUrl = environment.bucketBaseUrl;
+    await this.presentLoading();
+
 
     this.route.paramMap.subscribe(
       (params: ParamMap) => {
@@ -39,12 +43,26 @@ export class ProdutosPage implements OnInit {
         ).subscribe(response => {
           this.items = response['content'];
         },
-        error => {});
+        error => {this.dismissLoading(); });
       }
     );
+    await this.dismissLoading();
   }
 
   showDetail(produto_id) {
     this.navCtrl.navigateForward(['/produto-detail', {produto_id: produto_id}]);
+  }
+
+  private async presentLoading() {
+    this.loading = await this.loadCtrl.create({
+      message: 'Aguarde...',
+      translucent: true,
+    });
+    this.loading.present();
+  }
+
+
+  private async dismissLoading() {
+    this.loading.dismiss();
   }
 }
