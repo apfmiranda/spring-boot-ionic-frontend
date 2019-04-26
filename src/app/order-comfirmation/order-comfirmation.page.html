@@ -78,8 +78,8 @@
       </ion-item>
     </ion-card>
 
-    <ion-button block (click)="checkout()">Confirmar pedido</ion-button>
-    <ion-button block outline (click)="back()">Voltar</ion-button>
+    <ion-button expand="block" (click)="checkout()">Confirmar pedido</ion-button>
+    <ion-button expand="block" fill="outline" (click)="back()">Voltar</ion-button>
   </div>
 
   <div *ngIf="codpedido">
@@ -95,7 +95,7 @@
         </ion-item>
     </ion-card>
 
-    <button ion-button block outline (click)="home()">Voltar</button>
+    <ion-button expand="block" fill="outline" (click)="home()">Voltar</ion-button>
   </div>
   </div>
 </ion-content>

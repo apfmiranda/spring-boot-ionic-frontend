@@ -20,7 +20,7 @@ export class OrderComfirmationPage implements OnInit {
   cliente: ClienteDto;
   endereco: EnderecoDto;
 
-  codpedido;
+  codpedido: string;
 
   constructor(
     private clienteService: ClienteService,
@@ -52,7 +52,7 @@ export class OrderComfirmationPage implements OnInit {
     this.pedidoService.insert(this.pedido)
     .subscribe(response => {
       this.cartService.createOrClearCartInLocalStorage();
-      console.log(response.headers.get('location'));
+      this.codpedido = this.extractId(response.headers.get('location'));
     },
     error => {
       if (error.status === 403) {
@@ -61,8 +61,13 @@ export class OrderComfirmationPage implements OnInit {
     });
   }
 
+  private extractId(location: string): string {
+    const position = location.lastIndexOf('/');
+    return location.substring(position + 1, location.length);
+  }
+
   home() {
-    this.navCtrl.navigateRoot(['/home']);
+    this.navCtrl.navigateRoot(['/categorias']);
   }
 
   back() {
