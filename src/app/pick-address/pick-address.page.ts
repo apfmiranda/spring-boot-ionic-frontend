@@ -1,3 +1,5 @@
+import { ParamService } from './../_services/param.service';
+import { Router } from '@angular/router';
 import { CartService } from './../_services/cart.service';
 import { PedidoDTO } from './../_models/pedido-dto';
 import { ClienteService } from './../_services/cliente.service';
@@ -5,7 +7,6 @@ import { NavController } from '@ionic/angular';
 import { EnderecoDto } from './../_models/endereco-dto';
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../_services/storage.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pick-address',
@@ -53,6 +54,8 @@ export class PickAddressPage implements OnInit {
 
   nextPage(address: EnderecoDto) {
     this.pedido.enderecoDeEntrega = {id: address.id};
-    console.log(this.pedido);
+
+    this.clienteService.setPedidoFinalizado(this.pedido);
+    this.navCtrl.navigateForward(['/payment']);
   }
 }

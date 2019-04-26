@@ -1,3 +1,4 @@
+import { PedidoDTO } from './../_models/pedido-dto';
 import { SignupPageModule } from './../signup/signup.module';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -12,6 +13,8 @@ import { ClienteDto } from './../_models/cliente-dto';
   providedIn: 'root'
 })
 export class ClienteService {
+
+  private pedidoFinalizado: PedidoDTO;
 
   constructor(public http: HttpClient, public storage: StorageService) { }
 
@@ -30,5 +33,13 @@ export class ClienteService {
       observe: 'response',
       responseType: 'text'
     });
+  }
+
+  setPedidoFinalizado(pedido: PedidoDTO) {
+    this.pedidoFinalizado = pedido;
+  }
+
+  getPedidoFinalizado(): PedidoDTO {
+    return this.pedidoFinalizado;
   }
 }
