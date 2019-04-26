@@ -42,7 +42,7 @@ export class CartPage implements OnInit {
   }
 
   goOn() {
-    this.navCtrl.navigateForward(['/categorias']);
+    this.navCtrl.navigateRoot(['/categorias']);
   }
 
   checkout() {
