@@ -1,3 +1,4 @@
+import { Camera } from '@ionic-native/camera/ngx';
 import { SharedModule } from './../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -23,6 +24,7 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes)
   ],
+  providers: [Camera],
   declarations: [ProfilePage]
 })
 export class ProfilePageModule {}

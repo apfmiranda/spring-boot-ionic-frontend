@@ -4,6 +4,8 @@ import { StorageService } from './../_services/storage.service';
 import { Component, OnInit } from '@angular/core';
 import { ClienteDto } from '../_models/cliente-dto';
 import { environment } from 'src/environments/environment.prod';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+
 
 @Component({
   selector: 'app-profile',
@@ -13,11 +15,14 @@ import { environment } from 'src/environments/environment.prod';
 export class ProfilePage implements OnInit {
 
   cliente: ClienteDto;
+  picture: string;
+  cameraOn = false;
 
   constructor(
-    public navCtrl: NavController,
-    public storage: StorageService,
-    public clienteService: ClienteService) { }
+    private camera: Camera,
+    private navCtrl: NavController,
+    private storage: StorageService,
+    private clienteService: ClienteService) { }
 
   ngOnInit() {
     const localUser = this.storage.getLocalUser();
@@ -44,5 +49,26 @@ export class ProfilePage implements OnInit {
     },
     error => {});
   }
+
+  getCameraPicture() {
+    this.cameraOn = !this.cameraOn;
+
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.PNG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+
+    this.camera.getPicture(options).then((imageData) => {
+     const mediaSource = new MediaSource();
+     const video = document.createElement('video');
+     this.picture = 'data:image/png;base64,' + imageData;
+     this.cameraOn = !this.cameraOn;
+    }, (err) => {
+     // Handle error
+    });
+  }
+
 
 }

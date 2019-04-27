@@ -44,8 +44,6 @@ export class ProdutosPage implements OnInit {
           }
         })).subscribe(response => {
           this.items = this.items.concat(response['content']);
-          console.log(this.page);
-          console.log(this.items);
         }, error => { this.dismissLoading(); });
     });
     await this.dismissLoading();

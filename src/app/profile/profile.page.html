@@ -11,6 +11,22 @@
             <h2 text-center>{{ cliente?.nome }}</h2>
             <p text-center>{{ cliente?.email }}</p>
         </ion-grid>
+    
+    
+        <ion-card>
+            <ion-card-header>
+                Enviar imagem de perfil
+            </ion-card-header>
+            <ion-item *ngIf="picture">
+                <img [src]="picture">
+            </ion-item>
+            <ion-item>
+                <ion-button expand="block" (click)="getCameraPicture()" [disabled]="cameraOn">Camera</ion-button>
+                <!-- <button ion-button block (click)="getGalleryPicture()" [disabled]="cameraOn">Galeria</button>
+                <button *ngIf="picture" ion-button outline block (click)="sendPicture()">Enviar imagem</button>
+                <button *ngIf="picture" ion-button outline block (click)="cancel()">Descartar imagem</button> -->
+            </ion-item>
+        </ion-card>     
     </div>
 </ion-content>
 
