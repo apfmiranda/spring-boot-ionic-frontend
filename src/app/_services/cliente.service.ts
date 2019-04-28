@@ -1,3 +1,4 @@
+import { ImageUtilService } from './image-util.service';
 import { PedidoDTO } from './../_models/pedido-dto';
 import { SignupPageModule } from './../signup/signup.module';
 import { Observable } from 'rxjs';
@@ -16,7 +17,10 @@ export class ClienteService {
 
   private pedidoParaFinalizar: PedidoDTO;
 
-  constructor(public http: HttpClient, public storage: StorageService) { }
+  constructor(
+    public http: HttpClient,
+    private imageUtilService: ImageUtilService,
+    public storage: StorageService) { }
 
   findByEmail(email: string) {
     return this.http.get(`${environment.baseUrl}/clientes/email?value=${email}`);
@@ -36,6 +40,18 @@ export class ClienteService {
       observe: 'response',
       responseType: 'text'
     });
+  }
+
+  uploadPicture(picture) {
+    const pictureBlob  = this.imageUtilService.dataUriToBlob(picture);
+    const formData: FormData = new FormData();
+    formData.set('file', pictureBlob, 'file.png');
+    return this.http.post(`${environment.baseUrl}/clientes/picture`, formData,
+    {
+      observe: 'response',
+      responseType: 'text'
+    });
+
   }
 
   setPedidoParaFinalizar(pedido: PedidoDTO) {
