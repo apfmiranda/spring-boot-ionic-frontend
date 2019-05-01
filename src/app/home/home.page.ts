@@ -23,6 +23,7 @@ export class HomePage implements OnInit {
   login() {
     this.authService.authenticate(this.credenciais)
       .subscribe(response => {
+        console.log(response);
         this.authService.successfulLogin(response.headers.get('Authorization'));
         this.navCtrl.navigateRoot('/categorias');
       },
