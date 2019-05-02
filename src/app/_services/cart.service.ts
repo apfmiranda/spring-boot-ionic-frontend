@@ -10,11 +10,11 @@ import { ProdutoDto } from '../_models/produto-dto';
 })
 export class CartService {
 
-  private action = {
-    ADD:      'add',
-    REMOVE:   'remove',
-    DECREASE: 'decrease',
-    INCREASE: 'increase'
+  private ACTION = {
+    ADD:      1,
+    REMOVE:   2,
+    DECREASE: 3,
+    INCREASE: 4
   };
 
   constructor(private storage: StorageService) { }
@@ -34,19 +34,19 @@ export class CartService {
   }
 
   addProduto(produto: ProdutoDto): Cart {
-    return this.doActionInCart(produto, this.action.ADD);
+    return this.doActionInCart(produto, this.ACTION.ADD);
   }
 
   removeProduto(produto: ProdutoDto): Cart {
-    return this.doActionInCart(produto, this.action.REMOVE);
+    return this.doActionInCart(produto, this.ACTION.REMOVE);
   }
 
   increaseQuantity(produto: ProdutoDto): Cart {
-    return this.doActionInCart(produto, this.action.INCREASE);
+    return this.doActionInCart(produto, this.ACTION.INCREASE);
   }
 
   decreaseQuantity(produto: ProdutoDto): Cart {
-    return this.doActionInCart(produto, this.action.DECREASE);
+    return this.doActionInCart(produto, this.ACTION.DECREASE);
   }
 
   total(): number {
@@ -59,23 +59,23 @@ export class CartService {
     return sum;
   }
 
-  private doActionInCart(produto: ProdutoDto, action: string ): Cart {
+  private doActionInCart(produto: ProdutoDto, action: number ): Cart {
     let cart = this.getCart();
     const position = cart.items.findIndex(x => x.produto.id === produto.id);
     const prodExists = (position !== -1);
 
     switch (action) {
-      case this.action.ADD:
+      case this.ACTION.ADD:
         // if produto not exists in cart add; else incriese
         (!prodExists) ? cart.items.push({quantidade: 1, produto: produto}) : this.increaseQuantity(produto);
         break;
-      case this.action.REMOVE:
+      case this.ACTION.REMOVE:
         if (prodExists) {cart.items.splice(position, 1); }
         break;
-      case this.action.INCREASE:
+      case this.ACTION.INCREASE:
         cart.items[position].quantidade++;
         break;
-      case this.action.DECREASE:
+      case this.ACTION.DECREASE:
         cart.items[position].quantidade--;
         if (cart.items[position].quantidade < 1) {cart = this.removeProduto(produto); }
         break;

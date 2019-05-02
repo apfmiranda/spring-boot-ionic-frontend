@@ -1,4 +1,4 @@
-import { NavController } from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
 import { ClienteService } from './../_services/cliente.service';
 import { StorageService } from './../_services/storage.service';
 import { Component, OnInit } from '@angular/core';
@@ -14,14 +14,21 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 })
 export class ProfilePage implements OnInit {
 
+  private IMAGE_FROM = {
+    GALLERY: 1,
+    CAMERA: 2
+  };
+
   cliente: ClienteDto;
   picture: string;
   cameraOn = false;
+  private loading: any;
 
   constructor(
     private camera: Camera,
     private navCtrl: NavController,
     private storage: StorageService,
+    private loadCtrl: LoadingController,
     private clienteService: ClienteService) { }
 
   ngOnInit() {
@@ -55,53 +62,73 @@ export class ProfilePage implements OnInit {
   }
 
   getCameraPicture() {
-    this.cameraOn = !this.cameraOn;
-
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.PNG,
-      mediaType: this.camera.MediaType.PICTURE
-    };
-
-    this.camera.getPicture(options).then((imageData) => {
-     this.picture = 'data:image/png;base64,' + imageData;
-     this.cameraOn = !this.cameraOn;
-    }, (err) => {
-     // Handle error
-    });
+    this.getPicture(this.IMAGE_FROM.CAMERA);
   }
 
   getGalleryPicture() {
-    this.cameraOn = !this.cameraOn;
-
-    const options: CameraOptions = {
-      quality: 100,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.PNG,
-      mediaType: this.camera.MediaType.PICTURE
-    };
-
-    this.camera.getPicture(options).then((imageData) => {
-     this.picture = 'data:image/png;base64,' + imageData;
-     this.cameraOn = !this.cameraOn;
-    }, (err) => {
-     // Handle error
-    });
+    this.getPicture(this.IMAGE_FROM.GALLERY);
   }
 
-  sendPicture() {
+  getPicture(imageFrom: number) {
+    this.cameraOn = !this.cameraOn;
+
+    let options: CameraOptions;
+
+    switch (imageFrom) {
+      case this.IMAGE_FROM.GALLERY:
+      options = {
+        quality: 100,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.PNG,
+        mediaType: this.camera.MediaType.PICTURE
+      };
+        break;
+      case this.IMAGE_FROM.CAMERA:
+      options = {
+        quality: 100,
+        cameraDirection: this.camera.Direction.FRONT,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.PNG,
+        mediaType: this.camera.MediaType.PICTURE
+      };
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      this.picture = 'data:image/png;base64,' + imageData;
+      this.cameraOn = !this.cameraOn;
+    }, (err) => {
+      this.cameraOn = !this.cameraOn;
+    });
+
+  }
+
+  async sendPicture() {
+    await this.presentLoading('Enviando...');
     this.clienteService.uploadPicture(this.picture)
     .subscribe(response => {
       this.cancel();
       this.loadData();
     },
     error => {});
+    await this.dismissLoading();
   }
 
   cancel() {
     this.picture = null;
+  }
+
+  private async presentLoading(msg: string) {
+    this.loading = await this.loadCtrl.create({
+      message: msg,
+      translucent: true,
+    });
+    this.loading.present();
+  }
+
+
+  private async dismissLoading() {
+    this.loading.dismiss();
   }
 
 }
